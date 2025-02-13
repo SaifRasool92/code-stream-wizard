@@ -84,13 +84,13 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto space-y-8">
         <div className="text-center">
-          <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl">
+          <h1 className="text-4xl font-bold text-blue-900 sm:text-5xl animate-fade-in">
             Healthcare AI Assistant
           </h1>
-          <p className="mt-4 text-lg text-gray-600">
+          <p className="mt-4 text-lg text-blue-600">
             Get immediate medical guidance and chat with our AI healthcare assistant
           </p>
         </div>
@@ -100,30 +100,36 @@ const Index = () => {
             <Button
               key={emergency.label}
               variant="outline"
-              className={`h-auto py-4 px-4 flex flex-col items-center gap-2 text-center ${
-                selectedEmergency === emergency.label ? "border-red-500 bg-red-50" : ""
+              className={`h-auto py-6 px-4 flex flex-col items-center gap-3 text-center transition-all duration-200 hover:scale-105 ${
+                selectedEmergency === emergency.label 
+                ? "border-blue-500 bg-blue-50 shadow-lg" 
+                : "hover:border-blue-300 hover:bg-blue-50"
               }`}
               onClick={() => handleEmergencySelect(emergency.label)}
             >
-              <emergency.icon className="h-6 w-6 text-red-600" />
+              <emergency.icon className={`h-8 w-8 ${
+                selectedEmergency === emergency.label 
+                ? "text-blue-600" 
+                : "text-blue-400"
+              }`} />
               <div>
-                <div className="font-semibold">{emergency.label}</div>
-                <div className="text-xs text-gray-500">{emergency.description}</div>
+                <div className="font-semibold text-blue-900">{emergency.label}</div>
+                <div className="text-xs text-blue-600">{emergency.description}</div>
               </div>
             </Button>
           ))}
         </div>
 
-        <div className="grid gap-4 grid-cols-1 md:grid-cols-3">
-          <Card className="border-2 border-red-100 md:col-span-2">
-            <CardHeader>
-              <CardTitle className="text-xl text-red-600">Chat with AI Healthcare Assistant</CardTitle>
-              <CardDescription>
+        <div className="grid gap-6 grid-cols-1 md:grid-cols-3">
+          <Card className="border-2 border-blue-100 md:col-span-2 shadow-lg hover:shadow-xl transition-shadow duration-200">
+            <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50">
+              <CardTitle className="text-xl text-blue-900">Chat with AI Assistant</CardTitle>
+              <CardDescription className="text-blue-600">
                 Describe your symptoms or concerns, and our AI will guide you through the process.
               </CardDescription>
             </CardHeader>
-            <CardContent>
-              <div className="bg-white rounded-lg p-4 h-[400px] overflow-y-auto mb-4 border">
+            <CardContent className="p-6">
+              <div className="bg-white rounded-lg p-4 h-[400px] overflow-y-auto mb-4 border border-blue-100 shadow-inner">
                 {chatHistory.map((message, index) => (
                   <div
                     key={index}
@@ -132,14 +138,16 @@ const Index = () => {
                     }`}
                   >
                     <div
-                      className={`inline-block p-3 rounded-lg ${
+                      className={`inline-block p-4 rounded-lg shadow-md max-w-[80%] ${
                         message.role === 'user'
-                          ? 'bg-blue-100 text-blue-900'
+                          ? 'bg-blue-500 text-white'
                           : 'bg-gray-100 text-gray-900'
                       }`}
                     >
                       <p className="whitespace-pre-line">{message.content}</p>
-                      <p className="text-xs text-gray-500 mt-1">
+                      <p className={`text-xs mt-2 ${
+                        message.role === 'user' ? 'text-blue-100' : 'text-gray-500'
+                      }`}>
                         {message.timestamp.toLocaleTimeString()}
                       </p>
                     </div>
@@ -151,11 +159,11 @@ const Index = () => {
                   placeholder="Describe your symptoms or respond to the AI's questions..."
                   value={symptoms}
                   onChange={(e) => setSymptoms(e.target.value)}
-                  className="min-h-[100px]"
+                  className="min-h-[100px] border-blue-200 focus:border-blue-400 shadow-sm"
                 />
                 <Button 
                   type="submit" 
-                  className="w-full bg-blue-600 hover:bg-blue-700"
+                  className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white shadow-md hover:shadow-lg transition-all duration-200"
                   disabled={isLoading}
                 >
                   {isLoading ? "Processing..." : "Send Message"}
@@ -164,15 +172,15 @@ const Index = () => {
             </CardContent>
           </Card>
 
-          <Card className="border-2 border-purple-100">
-            <CardHeader>
-              <CardTitle className="text-lg text-purple-600">Important Guidelines</CardTitle>
+          <Card className="border-2 border-purple-100 shadow-lg hover:shadow-xl transition-shadow duration-200">
+            <CardHeader className="bg-gradient-to-r from-purple-50 to-pink-50">
+              <CardTitle className="text-lg text-purple-900">Important Guidelines</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-6">
               <div className="space-y-4">
-                <div className="bg-yellow-50 p-4 rounded-lg">
+                <div className="bg-gradient-to-r from-yellow-50 to-orange-50 p-4 rounded-lg shadow-md">
                   <h3 className="font-semibold text-yellow-800">Please Include:</h3>
-                  <ul className="list-disc list-inside text-sm text-yellow-700 mt-2">
+                  <ul className="list-disc list-inside text-sm text-yellow-700 mt-2 space-y-1">
                     <li>Age and gender</li>
                     <li>Medical history</li>
                     <li>Current medications</li>
@@ -180,9 +188,9 @@ const Index = () => {
                     <li>Pain level (1-10)</li>
                   </ul>
                 </div>
-                <div className="bg-red-50 p-4 rounded-lg">
+                <div className="bg-gradient-to-r from-red-50 to-pink-50 p-4 rounded-lg shadow-md">
                   <h3 className="font-semibold text-red-800">Emergency Numbers:</h3>
-                  <ul className="list-none text-sm text-red-700 mt-2">
+                  <ul className="list-none text-sm text-red-700 mt-2 space-y-1">
                     <li>Emergency: 911</li>
                     <li>Poison Control: 1-800-222-1222</li>
                   </ul>
@@ -192,7 +200,7 @@ const Index = () => {
           </Card>
         </div>
 
-        <div className="text-center">
+        <div className="text-center bg-red-50 p-6 rounded-lg shadow-md">
           <p className="text-red-600 font-bold text-lg">
             If you're experiencing a medical emergency, call emergency services immediately!
           </p>
