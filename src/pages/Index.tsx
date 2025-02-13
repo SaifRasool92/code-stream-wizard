@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -10,14 +9,14 @@ import {
   CardDescription,
   CardContent,
 } from "@/components/ui/card";
-import { Heart, Brain, Thermometer, Lungs, Pill, Activity } from "lucide-react";
+import { Heart, Brain, Thermometer, Activity, Pill } from "lucide-react";
 
 const commonEmergencies = [
   { icon: Heart, label: "Chest Pain", description: "Heart attack symptoms" },
   { icon: Brain, label: "Stroke", description: "Stroke symptoms" },
   { icon: Activity, label: "Difficulty Breathing", description: "Breathing problems" },
   { icon: Thermometer, label: "High Fever", description: "Temperature above 103°F" },
-  { icon: Lungs, label: "Severe Allergic Reaction", description: "Anaphylaxis" },
+  { icon: Activity, label: "Severe Allergic Reaction", description: "Anaphylaxis" },
   { icon: Pill, label: "Medication Reaction", description: "Adverse drug reaction" },
 ];
 
